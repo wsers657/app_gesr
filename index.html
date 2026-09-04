@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kotiz — the financial co-pilot for modern households." />
+  <title>Kotiz — Money, better together.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <nav class="nav" aria-label="Main navigation">
+    <a class="brand" href="#home" data-route="home" aria-label="Kotiz home"><img class="brand-mark" src="images/kotiz-mark-inclusive-transparent.png" alt=""> kotiz</a>
+    <div class="nav-links" role="navigation" aria-label="Page tabs">
+      <a href="#home" data-route="home">Home</a><a href="#finance" data-route="finance">Finance</a><a href="#savings" data-route="savings">Savings</a><a href="#abonnement" data-route="abonnement">Abonnement</a><a href="#vision" data-route="vision">Vision</a>
+    </div>
+    <button class="language-toggle" type="button" aria-label="Passer le site en français"><span class="lang-active">EN</span><i></i><span>FR</span></button>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><svg class="burger-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="burger-top" d="M3 8h18"/><path class="burger-bottom" d="M3 16h18"/></svg></button>
+    <a class="nav-cta" href="#savings" data-route="savings">Explore <span>↗</span></a>
+  </nav>
+
+  <main>
+    <section class="hero page-view" data-page="home" id="top">
+      <div class="hero-glow"></div>
+      <img class="hero-brand-art" src="images/kotiz-mark-inclusive-transparent.png" alt="" aria-hidden="true">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span></span> Finance, made for households</div>
+        <h1>Money, better<br><em>together.</em></h1>
+        <p>A smarter way for households to manage, split and understand their money — fairly and transparently.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#savings" data-route="savings">Discover the concept <span>→</span></a>
+          <div class="trust"><div class="avatars"><span>J</span><span>T</span></div><p><strong>Built for real life</strong><br>Not just repayments</p></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal delay-1" aria-label="Kotiz application preview">
+        <div class="float-card balance-float"><small>HOUSEHOLD BALANCE</small><strong>€3,482</strong><span class="positive">↗ 8.4% this month</span></div>
+        <div class="phone">
+          <div class="phone-top"><span>9:41</span><span>● ●●</span></div>
+          <header class="app-header"><div><small>Good morning,</small><h3>Julie</h3></div><span class="avatar">JD</span></header>
+          <div class="app-balance"><small>Available this month</small><strong>€1,863.40</strong><div class="budget-line"><i></i></div><span>€1,637 of €3,500 spent</span></div>
+          <div class="quick-actions"><button>＋<span>Add</span></button><button>⇄<span>Split</span></button><button>⌁<span>Goals</span></button></div>
+          <div class="app-section-title"><b>Recent activity</b><span>See all</span></div>
+          <div class="transaction"><i class="icon home">⌂</i><div><b>Rent</b><small>Today · Home</small></div><strong>−€1,400</strong></div>
+          <div class="transaction"><i class="icon food">◒</i><div><b>Groceries</b><small>Yesterday · Shared</small></div><strong>−€84.20</strong></div>
+          <div class="transaction"><i class="icon power">ϟ</i><div><b>Electricity</b><small>Aug 28 · Bills</small></div><strong>−€95</strong></div>
+        </div>
+        <div class="float-card split-float"><div class="success">✓</div><div><small>SPLIT COMPLETE</small><strong>Fairly divided</strong><span>Julie 58% · Thomas 42%</span></div></div>
+      </div>
+      <div class="hero-foot"><span>01 — INTRODUCTION</span><span>SCROLL TO EXPLORE ↓</span></div>
+    </section>
+
+    <section class="problem section page-view" data-page="home">
+      <div class="section-head light reveal"><div><span class="index">01</span><span class="kicker">THE FAMILY BUDGET CHALLENGE</span></div><h2>Managing a family budget is simple.<br><em>Saving consistently isn't.</em></h2></div>
+      <div class="problem-layout">
+        <article class="spending-story reveal">
+          <div class="story-top"><span>ONE MONTH, AT A GLANCE</span><small>DEMO HOUSEHOLD</small></div>
+          <div class="story-total"><div><small>Total outflow</small><strong>€3,487</strong><span>of €4,800 household income</span></div><div class="spend-ring"><b>73%</b><span></span></div></div>
+          <div class="spend-breakdown">
+            <div><span><i class="housing-dot"></i>Housing <b>€1,495</b></span><em><i style="--bar:82%"></i></em></div>
+            <div><span><i class="food-dot"></i>Food & everyday <b>€912</b></span><em><i style="--bar:58%"></i></em></div>
+            <div><span><i class="bills-dot"></i>Bills & subscriptions <b>€648</b></span><em><i style="--bar:43%"></i></em></div>
+            <div><span><i class="other-dot"></i>Uncategorized <b>€432</b></span><em><i style="--bar:30%"></i></em></div>
+          </div>
+          <div class="story-warning"><span>!</span><div><b>€432 has no clear category</b><small>Small purchases add up without anyone noticing.</small></div></div>
+        </article>
+        <div class="problem-insights">
+          <article class="insight-card reveal delay-1"><div class="insight-icon">⌁</div><div class="insight-copy"><span>VISIBILITY</span><h3>Where does it go?</h3><p>Daily purchases, bills and subscriptions live in different places. The household never sees the full picture.</p></div><div class="insight-stat"><strong>27</strong><span>transactions<br>to review</span></div></article>
+          <article class="insight-card reveal delay-2"><div class="insight-icon">↗</div><div class="insight-copy"><span>PROGRESS</span><h3>Are we on track?</h3><p>Without one shared view, monthly goals become guesswork — and saving is postponed again.</p></div><div class="mini-trend"><i></i><i></i><i></i><i></i><i></i><span>Goal</span></div></article>
+          <article class="insight-card reveal delay-3"><div class="insight-icon">◎</div><div class="insight-copy"><span>OPPORTUNITY</span><h3>Could we save more?</h3><p>Price increases and cheaper alternatives are easy to miss when recurring expenses run silently.</p></div><div class="saving-pill"><small>POTENTIAL</small><strong>€140</strong><span>/ month</span></div></article>
+        </div>
+      </div>
+      <div class="problem-footer reveal"><p><strong>The problem isn't a lack of effort.</strong> It's a lack of one clear, shared system.</p><div><span><b>1</b> shared view</span><span><b>0</b> mental math</span><span><b>∞</b> better decisions</span></div>
+      </div>
+    </section>
+
+    <section class="restaurant-partners section page-view reveal" data-page="home" aria-labelledby="restaurantTitle">
+      <div class="restaurant-copy"><span class="kicker">KOTIZ LOCAL</span><h3 id="restaurantTitle">Do you often eat out?</h3><p>Find partner restaurants near you and enjoy benefits designed for your household budget.</p><button type="button" class="location-button">⌖ Find restaurants near me</button></div>
+      <div class="restaurant-map" role="img" aria-label="Map showing nearby partner restaurants"><span class="map-road road-one"></span><span class="map-road road-two"></span><span class="map-road road-three"></span><span class="map-pin pin-one">1</span><span class="map-pin pin-two">2</span><span class="map-pin pin-three">3</span><div class="map-center"><span></span><small>You are here</small></div><div class="map-label label-one">Le Jardin</div><div class="map-label label-two">Casa Mia</div><div class="map-label label-three">Bistro 21</div></div>
+    </section>
+
+    <section class="finance section page-view page-first" data-page="finance" id="finance">
+      <div class="section-head light reveal"><div><span class="index">02</span><span class="kicker">YOUR FINANCIAL SPACE</span></div><h2>All your money.<br><em>One clear view.</em></h2></div>
+      <p class="finance-intro reveal">See your savings, investments, rent and linked accounts in one place. Kotiz only displays your information and never moves your money.</p>
+      <div class="finance-status reveal"><span class="status-dot"></span><strong>View-only mode</strong><span>Your banks remain in control</span></div>
+      <div class="finance-insight reveal"><span class="insight-icon">!</span><div><strong>Too many tools can make money easy to forget.</strong><p>A Livret, an old subscription or a small investment can disappear from your daily view. Kotiz brings them back into one clear family picture.</p></div><span class="insight-arrow">↗</span></div>
+      <div class="finance-overview reveal"><div><span>TOTAL SAVINGS & INVESTMENTS</span><strong>€18,420</strong><small>+4.8% since January</small></div><div><span>MONTHLY RENT</span><strong>€1,400</strong><small>Next payment · Sep 05</small></div><div><span>CONNECTED ACCOUNTS</span><strong>3</strong><small>Last sync · Today, 09:41</small></div></div>
+      <div class="wealth-dashboard reveal"><article class="wealth-total"><span>TOTAL HOUSEHOLD MONEY</span><strong>€42,580</strong><p>Accounts, savings and investments combined</p><div class="wealth-sources"><span><i class="source-bank"></i>Bank accounts <b>€24,160</b></span><span><i class="source-savings"></i>Savings & investments <b>€18,420</b></span></div></article><article class="expense-pie-panel"><div><span>MONTHLY SPENDING MIX</span><h3>Where your money goes</h3></div><div class="expense-pie-wrap"><div class="expense-pie" role="img" aria-label="Expense breakdown: housing 48 percent, food 18 percent, subscriptions 12 percent, transport 10 percent, other 12 percent"><span class="pie-total">2 517 €</span></div><div class="expense-legend"><span><i class="legend-housing"></i>Housing <b>48%</b></span><span><i class="legend-food"></i>Food <b>18%</b></span><span><i class="legend-subscriptions"></i>Subscriptions <b>12%</b></span><span><i class="legend-transport"></i>Transport <b>10%</b></span><span><i class="legend-other"></i>Other <b>12%</b></span></div></div></article></div>
+      <div class="finance-grid">
+        <article class="finance-panel family-panel reveal"><div class="finance-panel-head"><div><span>FAMILY MEMBERS</span><h3>See everyone's savings</h3></div><button type="button" class="panel-action">＋ Add member</button></div><div class="member-add-form" hidden><input id="memberName" type="text" placeholder="Family member name"><button type="button" id="saveMember">Add</button></div><div class="member-row" data-member="Julie" data-reserve="€8,240" data-reserve-type="Livret A"><span class="member-avatar julie-avatar">J</span><div><strong>Julie</strong><small>Household owner</small></div><b>€8,240</b><button type="button" class="view-member">View</button></div><div class="member-row" data-member="Thomas" data-reserve="€4,180" data-reserve-type="LDDS"><span class="member-avatar thomas-avatar">T</span><div><strong>Thomas</strong><small>Household member</small></div><b>€4,180</b><button type="button" class="view-member">View</button></div><div class="member-row" data-member="Emma" data-reserve="€1,240" data-reserve-type="Livret Jeune"><span class="member-avatar child-avatar">E</span><div><strong>Emma</strong><small>Livret Jeune · View only</small></div><b>€1,240</b><button type="button" class="view-member">View</button></div><div class="member-reserve" id="memberReserve" hidden><span>SELECTED RESERVE</span><strong id="memberReserveTitle">Emma's Livret Jeune</strong><b id="memberReserveAmount">€1,240</b><small>View only · Latest synced balance</small></div><p class="read-only-note">Choose a member to see their savings in the shared view.</p></article>
+        <article class="finance-panel rent-panel reveal delay-1"><div class="finance-panel-head"><div><span>HOUSING</span><h3>Your rent</h3></div><span class="panel-badge">RECURRING</span></div><div class="rent-amount"><span>€1,400</span><small>per month</small></div><div class="rent-meta"><span><small>NEXT PAYMENT</small><strong>September 05</strong></span><span><small>YEARLY TOTAL</small><strong>€16,800</strong></span></div><div class="rent-progress"><span style="width:68%"></span></div><p>68% of this month's housing budget</p></article>
+        <article class="finance-panel import-panel reveal"><div class="finance-panel-head"><div><span>DATA IMPORTS</span><h3>Bring your statements together</h3></div><span class="import-icon">↓</span></div><p>Import a statement to complete your household view. Your file stays on this device.</p><label class="import-button" for="statementImport">＋ Import a statement</label><input id="statementImport" type="file" accept=".csv,.pdf,.ofx" hidden><small class="import-format">CSV, PDF or OFX · Read-only analysis</small></article>
+        <article class="finance-panel banks-panel reveal delay-1"><div class="finance-panel-head"><div><span>CONNECTED BANKS</span><h3>Your accounts</h3></div><span class="secure-mark">✓</span></div><div class="bank-row"><span class="bank-logo bnp">B</span><div><strong>BNP Paribas</strong><small>Synced today · 2 accounts</small></div><a href="https://mabanque.bnpparibas/" target="_blank" rel="noreferrer">Open bank app ↗</a></div><div class="bank-row"><span class="bank-logo revolut">R</span><div><strong>Revolut</strong><small>Synced today · 1 account</small></div><a href="https://app.revolut.com/" target="_blank" rel="noreferrer">Open bank app ↗</a></div><p class="read-only-note">Kotiz displays balances only. To manage your money, use your bank's app.</p></article>
+      </div>
+    </section>
+
+    <section class="product section page-view page-first" data-page="savings" id="product">
+      <div class="section-head light reveal"><div><span class="index">03</span><span class="kicker">THE SOLUTION</span></div><h2>Meet your household's<br><em>financial co-pilot.</em></h2></div>
+      <p class="section-intro reveal">One calm place to budget, split, save and understand money together.</p>
+      <div class="dashboard reveal">
+        <aside><div class="dash-brand"><img src="images/kotiz-mark-inclusive-transparent.png" alt=""> kotiz</div><div class="side-person"><span>JD</span><div><b>Julie & Thomas</b><small>Family space</small></div></div><ul><li class="active">⌂ Overview</li><li>◫ Transactions</li><li>⇄ Split expenses</li><li>◎ Savings goals</li><li>◌ Insights</li></ul><div class="side-card"><small>MONTHLY PLAN</small><b>72% on track</b><i><span></span></i></div></aside>
+        <div class="dash-main"><div class="dash-title"><div><small>AUGUST 2026</small><h3>Household overview</h3></div><button>＋ Add expense</button></div>
+          <div class="stat-row"><div><small>Total budget</small><strong>€3,500</strong><span>Monthly</span></div><div><small>Total spent</small><strong>€2,517</strong><span class="positive">↓ 6.2%</span></div><div><small>Available</small><strong>€983</strong><span>28% left</span></div></div>
+          <div class="chart-card"><div class="chart-head"><div><small>SPENDING OVERVIEW</small><h4>€2,517 <span>this month</span></h4></div><div class="legend"><span><i></i>Spent</span><span><i></i>Budget</span></div></div><svg viewBox="0 0 700 180" role="img" aria-label="Monthly spending chart"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7048e8" stop-opacity=".38"/><stop offset="1" stop-color="#f59e0b" stop-opacity=".04"/></linearGradient></defs><path class="area" d="M0 145 C65 145 70 100 140 105 S235 75 285 92 S365 38 430 65 S525 25 580 46 S645 22 700 16 L700 180 L0 180Z"/><path class="line" d="M0 145 C65 145 70 100 140 105 S235 75 285 92 S365 38 430 65 S525 25 580 46 S645 22 700 16"/><path class="target" d="M0 75 L700 48"/></svg><div class="chart-labels"><span>Aug 1</span><span>Aug 8</span><span>Aug 15</span><span>Aug 22</span><span>Aug 31</span></div></div>
+          <div class="bottom-panels"><div><div class="panel-head"><b>Top categories</b><span>View all</span></div><div class="category"><i>⌂</i><span>Housing<small>€1,495</small></span><em style="--w:72%"></em></div><div class="category"><i>◒</i><span>Food<small>€492</small></span><em style="--w:38%"></em></div></div><div class="goal"><small>SAVINGS GOAL</small><div class="goal-title"><span>✈</span><div><b>Japan Trip</b><small>Summer 2027</small></div></div><strong>€1,600 <small>/ €4,000</small></strong><i><span></span></i><p>40% funded <b>Keep going!</b></p></div></div>
+        </div>
+      </div>
+      <section class="external-tracking reveal" aria-labelledby="externalTrackingTitle">
+        <div class="external-tracking-head"><div><span class="kicker">AUTOMATIC TRACKING</span><h3 id="externalTrackingTitle">Shop anywhere.<br><em>See it instantly in Kotiz.</em></h3></div><p>When your household pays on an external website, Kotiz recognizes the transaction and records it in your shared budget automatically.</p></div>
+        <div class="external-flow"><div class="external-browser"><div class="browser-bar"><i></i><i></i><i></i><span>shop.maisonco.com</span></div><div class="purchase-content"><span class="store-mark">M</span><strong>Maison & Co.</strong><small>Home essentials</small><div class="purchase-total"><span>Family tableware</span><b>€84.20</b></div><button type="button" id="simulatePurchase">Complete purchase</button></div></div><div class="flow-arrow">→<small>automatic capture</small></div><div class="external-app"><div class="app-mini-head"><img class="brand-mark" src="images/kotiz-mark-inclusive-transparent.png" alt=""><span>Kotiz · Shared budget</span><b>✓</b></div><div class="captured-state"><span class="captured-icon">↗</span><div><small>NEW TRANSACTION</small><strong>Maison & Co.</strong><span>Household · Home</span></div><b>−€84.20</b></div><div class="captured-note">Added automatically to your budget</div></div></div>
+      </section>
+      <div class="features-intro reveal">
+        <div><span class="kicker">WHAT KOTIZ CONNECTS</span><h3>Four essentials.<br><em>One household view.</em></h3></div>
+        <p>Every transaction becomes useful: Kotiz turns scattered payments into a budget your whole household can understand and act on.</p>
+      </div>
+      <div class="features-row" aria-label="Kotiz key benefits">
+        <article class="feature-benefit reveal"><i>01</i><b aria-hidden="true">◎</b><h3>Shared budget</h3><p>Income, expenses and goals stay in one live view, accessible to everyone in the household.</p></article>
+        <article class="feature-benefit reveal delay-1"><i>02</i><b aria-hidden="true">⇄</b><h3>Automatic splits</h3><p>Shared payments are divided instantly, with no reminders, spreadsheets or mental math.</p></article>
+        <article class="feature-benefit reveal delay-2"><i>03</i><b aria-hidden="true">%</b><h3>Fair by design</h3><p>Choose equal, custom or income-based rules so each person contributes in the right way.</p></article>
+        <article class="feature-benefit reveal delay-3"><i>04</i><b aria-hidden="true">↗</b><h3>Actionable insights</h3><p>Spot recurring costs, budget drift and saving opportunities before the end of the month.</p></article>
+      </div>
+      <div class="product-transition reveal">
+        <div><small>UP NEXT</small><strong>See fairness calculated in seconds.</strong></div>
+        <button type="button" data-scroll-to="how">How it works <b>↓</b></button>
+      </div>
+    </section>
+
+    <section class="how section page-view" data-page="savings" id="how">
+      <div class="section-head reveal"><div><span class="index">04</span><span class="kicker">HOW IT WORKS</span></div><h2>Fairness, calculated<br><em>in seconds.</em></h2></div>
+      <div class="demo" id="demo">
+        <div class="demo-controls reveal">
+          <div class="step-tabs"><button class="active" data-step="1"><i>1</i><span>Add an expense<small>Enter what was paid</small></span></button><button data-step="2"><i>2</i><span>Choose the split<small>Equal, custom or by income</small></span></button><button data-step="3"><i>3</i><span>Balance updates<small>Everyone knows where they stand</small></span></button></div>
+          <div class="income-note"><span>Julie<strong>€2,800<small>/ month</small></strong></span><b>58.3%</b><span>Thomas<strong>€2,000<small>/ month</small></strong></span><b>41.7%</b></div>
+        </div>
+        <div class="demo-phone reveal delay-1">
+          <div class="demo-screen active" data-screen="1"><div class="screen-top"><button>‹</button><b>New expense</b><span></span></div><label>AMOUNT</label><div class="expense-amount"><span>€</span>1,000</div><label>DESCRIPTION</label><div class="input-row"><span>⌂</span><b>Monthly rent</b></div><button class="screen-button" data-next="2">Continue <span>→</span></button></div>
+          <div class="demo-screen" data-screen="2"><div class="screen-top"><button data-next="1">‹</button><b>Split method</b><span></span></div><label>SELECT A METHOD</label><button class="split-option"><span>½</span><div><b>Split equally</b><small>€500 each</small></div></button><button class="split-option selected"><span>%</span><div><b>Proportional to income</b><small>Based on each person's income</small></div><i>✓</i></button><button class="split-option"><span>✎</span><div><b>Custom split</b><small>Choose exact amounts</small></div></button><button class="screen-button" data-next="3">Calculate split <span>→</span></button></div>
+          <div class="demo-screen result" data-screen="3"><div class="screen-top"><button data-next="2">‹</button><b>Split complete</b><span></span></div><div class="result-check">✓</div><h3>Fairly split.</h3><p>Based on your household incomes</p><div class="result-person"><span class="julie">J</span><div><b>Julie pays</b><small>58.3% of the expense</small></div><strong>€583</strong></div><div class="result-person"><span class="thomas">T</span><div><b>Thomas pays</b><small>41.7% of the expense</small></div><strong>€417</strong></div><button class="screen-button" data-next="1">Done <span>✓</span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="calculator section page-view" data-page="savings" id="calculator">
+      <div class="section-head reveal"><div><span class="index">05</span><span class="kicker">YOUR KOTIZ POTENTIAL</span></div><h2>What could better money<br><em>habits unlock for you?</em></h2></div>
+      <p class="calculator-intro reveal">Answer four quick questions. Kotiz will estimate what your household could save in one year.</p>
+      <div class="quiz-shell reveal">
+        <div class="quiz-progress"><span id="quizCounter">Question 1 of 4</span><div><i id="quizProgress"></i></div></div>
+        <form id="savingsQuiz">
+          <fieldset class="quiz-step active" data-quiz-step="0"><legend>Who do you manage money with?</legend><p>This helps us understand your household.</p><div class="answer-grid"><label><input type="radio" name="household" value="couple"><span><i>♥</i><b>My partner</b><small>Couple or young family</small></span></label><label><input type="radio" name="household" value="flatmates"><span><i>⌂</i><b>Flatmates</b><small>A shared home</small></span></label><label><input type="radio" name="household" value="family"><span><i>◉</i><b>My family</b><small>Including teenagers</small></span></label></div></fieldset>
+          <fieldset class="quiz-step" data-quiz-step="1"><legend>How much does your household spend each month?</legend><p>An approximate amount is perfect.</p><div class="range-value"><span>€</span><output id="spendOutput">3,500</output><small>/ month</small></div><input class="range" id="monthlySpend" name="monthlySpend" type="range" min="1000" max="8000" step="100" value="3500"><div class="range-labels"><span>€1,000</span><span>€8,000+</span></div></fieldset>
+          <fieldset class="quiz-step" data-quiz-step="2"><legend>How do you track shared expenses today?</legend><p>Be honest — there is no wrong answer.</p><div class="answer-grid"><label><input type="radio" name="tracking" value="none"><span><i>~</i><b>We don't, really</b><small>Mostly from memory</small></span></label><label><input type="radio" name="tracking" value="manual"><span><i>▦</i><b>Notes or spreadsheet</b><small>Some manual tracking</small></span></label><label><input type="radio" name="tracking" value="app"><span><i>✓</i><b>A dedicated app</b><small>We already track closely</small></span></label></div></fieldset>
+          <fieldset class="quiz-step" data-quiz-step="3"><legend>What matters most to your household?</legend><p>Kotiz adapts the experience to your priority.</p><div class="answer-grid"><label><input type="radio" name="goal" value="save"><span><i>◎</i><b>Save more</b><small>Reach our goals sooner</small></span></label><label><input type="radio" name="goal" value="fair"><span><i>%</i><b>Split fairly</b><small>Match our real incomes</small></span></label><label><input type="radio" name="goal" value="clarity"><span><i>◌</i><b>Get clarity</b><small>Understand our spending</small></span></label></div></fieldset>
+          <div class="quiz-actions"><button type="button" id="quizBack">← Back</button><button type="button" id="quizNext">Continue <span>→</span></button></div>
+        </form>
+        <div class="quiz-result" id="quizResult" aria-live="polite"><span>YOUR ESTIMATED KOTIZ IMPACT</span><h3>You could save up to</h3><div class="saving-number"><sup>€</sup><strong id="annualSaving">1,680</strong><small>/ year</small></div><p>That's approximately <b id="monthlySaving">€140 every month</b> to put toward what matters to you.</p><div class="result-breakdown"><div><span>Without Kotiz</span><strong id="withoutKotiz">€42,000</strong><small>annual household spending</small></div><div><span>Potential with Kotiz</span><strong id="withKotiz">€40,320</strong><small>after estimated savings</small></div></div><button type="button" id="quizRestart">Retake the quiz ↻</button><a class="button primary quiz-discover" href="#abonnement">Discover offers <span>→</span></a><small class="estimate-note">Indicative estimate based on 2–5% of tracked spending, depending on current habits. Actual savings vary by household.</small></div>
+      </div>
+    </section>
+
+    <section class="offers section page-view page-first" data-page="abonnement" id="offers">
+      <div class="section-head light reveal"><div><span class="index">07</span><span class="kicker">KOTIZ OFFERS</span></div><h2>Spend less on what<br><em>you already use.</em></h2></div>
+      <div class="offers-lead reveal"><p>Kotiz spots recurring expenses and suggests relevant, lower-cost alternatives — always optional, always transparent.</p><span>CONCEPT PARTNERS · FOR DEMONSTRATION</span></div>
+      <div class="alternative-summary" id="alternativeSummary" aria-live="polite" hidden><div><span>ALTERNATIVES FOR YOUR SUBSCRIPTION</span><strong id="alternativeTitle">Save more on your monthly plan</strong><p id="alternativeDetails"></p></div><div class="alternative-saving"><strong id="alternativeMonthly">€0.00</strong><span>/ month</span><b id="alternativeAnnual">€0.00 / year</b></div></div>
+      <div class="offer-filters reveal" role="group" aria-label="Filter offers"><button class="active" data-offer-filter="all">All offers</button><button data-offer-filter="subscriptions">Subscriptions</button><button data-offer-filter="everyday">Everyday</button><button data-offer-filter="services">Services</button></div>
+      <div class="offers-grid">
+          <article class="offer-card reveal" data-offer-category="subscriptions" data-match="Netflix">
+            <div class="offer-card-head"><div class="partner-logo pulse">N</div><span class="offer-match">GOOD MATCH</span></div>
+            <div class="offer-tag">STREAMING ALTERNATIVE</div><h3>Streamly+</h3><p>Household streaming with the essentials, without paying for an oversized plan.</p>
+            <div class="offer-price"><div><span>CURRENT · NETFLIX</span><strong>€21.99 <small>/ month</small></strong></div><b>→</b><div><span>WITH STREAMLY+</span><strong>€11.99 <small>/ month</small></strong></div></div>
+            <div class="offer-saving"><b>Save €10 / month</b><span>€120 / year</span></div>
+            <button class="replace-suggestion" type="button" data-current="Netflix" data-replacement="Streamly+" data-saving="10" data-cycle="month"><span class="replace-copy">Replace Netflix with Streamly+</span><span class="replace-arrow">→</span></button>
+            <button class="promo-button" data-code="KOTIZ">Partner code <b>KOTIZ</b><span>Copy</span></button>
+          </article>
+          <article class="offer-card featured reveal delay-1" data-offer-category="subscriptions" data-match="Spotify">
+            <div class="offer-card-head"><div class="partner-logo volta">S</div><span class="offer-match">BEST MATCH</span></div>
+            <div class="offer-tag">MUSIC ALTERNATIVE</div><h3>Soundly</h3><p>Family music streaming with the listening features used most often.</p>
+            <div class="offer-price"><div><span>CURRENT · SPOTIFY</span><strong>€12.14 <small>/ month</small></strong></div><b>→</b><div><span>WITH SOUNDLY</span><strong>€9.59 <small>/ month</small></strong></div></div>
+            <div class="offer-saving"><b>Save €2.55 / month</b><span>€30.60 / year</span></div>
+            <button class="replace-suggestion" type="button" data-current="Spotify" data-replacement="Soundly" data-saving="2.55" data-cycle="month"><span class="replace-copy">Replace Spotify with Soundly</span><span class="replace-arrow">→</span></button>
+            <button class="promo-button" data-code="KOTIZ">Partner code <b>KOTIZ</b><span>Copy</span></button>
+          </article>
+          <article class="offer-card reveal delay-2" data-offer-category="subscriptions" data-match="Adobe">
+            <div class="offer-card-head"><div class="partner-logo panier">A</div><span class="offer-match">GOOD MATCH</span></div>
+            <div class="offer-tag">CREATIVE TOOLS ALTERNATIVE</div><h3>CreativeLite</h3><p>The essential creative tools in a simpler, lower-cost monthly plan.</p>
+            <div class="offer-price"><div><span>CURRENT · ADOBE</span><strong>€23.99 <small>/ month</small></strong></div><b>→</b><div><span>WITH CREATIVELITE</span><strong>€19.19 <small>/ month</small></strong></div></div>
+            <div class="offer-saving"><b>Save €4.80 / month</b><span>€57.60 / year</span></div>
+            <button class="replace-suggestion" type="button" data-current="Adobe" data-replacement="CreativeLite" data-saving="4.80" data-cycle="month"><span class="replace-copy">Replace Adobe with CreativeLite</span><span class="replace-arrow">→</span></button>
+            <button class="promo-button" data-code="KOTIZ">Partner code <b>KOTIZ</b><span>Copy</span></button>
+          </article>
+          <article class="offer-card reveal delay-3" data-offer-category="subscriptions" data-match="iCloud+">
+            <div class="offer-card-head"><div class="partner-logo mobile">☁</div><span class="offer-match">GOOD MATCH</span></div>
+            <div class="offer-tag">CLOUD STORAGE ALTERNATIVE</div><h3>Cloudy</h3><p>Simple household cloud storage with enough space for everyday files.</p>
+            <div class="offer-price"><div><span>CURRENT · ICLOUD+</span><strong>€9.99 <small>/ month</small></strong></div><b>→</b><div><span>WITH CLOUDY</span><strong>€7.99 <small>/ month</small></strong></div></div>
+            <div class="offer-saving"><b>Save €2 / month</b><span>€24 / year</span></div>
+            <button class="replace-suggestion" type="button" data-current="iCloud+" data-replacement="Cloudy" data-saving="2" data-cycle="month"><span class="replace-copy">Replace iCloud+ with Cloudy</span><span class="replace-arrow">→</span></button>
+            <button class="promo-button" data-code="KOTIZ">Partner code <b>KOTIZ</b><span>Copy</span></button>
+          </article>
+          <article class="offer-card reveal" data-offer-category="subscriptions" data-match="Basic-Fit">
+            <div class="offer-card-head"><div class="partner-logo gym">B</div><span class="offer-match">LOWER PRICE</span></div>
+            <div class="offer-tag">FITNESS ALTERNATIVE</div><h3>MoveMore</h3><p>A comparable gym plan that costs less, even though your current plan already fits your usage.</p>
+            <div class="offer-price"><div><span>CURRENT · BASIC-FIT</span><strong>€24.99 <small>/ 4 weeks</small></strong></div><b>→</b><div><span>WITH MOVEMORE</span><strong>€19.99 <small>/ 4 weeks</small></strong></div></div>
+            <div class="offer-saving"><b>Save €5 / 4 weeks</b><span>€65 / year</span></div>
+            <button class="replace-suggestion" type="button" data-current="Basic-Fit" data-replacement="MoveMore" data-saving="5" data-cycle="4weeks"><span class="replace-copy">Replace Basic-Fit with MoveMore</span><span class="replace-arrow">→</span></button>
+            <button class="promo-button" data-code="KOTIZ">Partner code <b>KOTIZ</b><span>Copy</span></button>
+          </article>
+      </div>
+      <div class="affiliate-model reveal"><div><span>FOR THE HOUSEHOLD</span><strong>Instant savings</strong><p>Relevant offers, one clear benefit and no extra cost.</p></div><b>＋</b><div><span>FOR THE PARTNER</span><strong>Qualified customers</strong><p>Households already looking to optimize that expense.</p></div><b>＋</b><div><span>FOR KOTIZ</span><strong>Affiliate revenue</strong><p>A disclosed commission when an offer is activated.</p></div></div>
+        <p class="partner-disclaimer reveal">Streamly+, Soundly, CreativeLite, Cloudy and MoveMore are fictional brands used to illustrate lower-cost alternatives. Prices and savings are examples only.</p>
+    </section>
+
+    <section class="subscriptions section page-view page-first" data-page="abonnement" id="subscriptions">
+      <div class="section-head reveal"><div><span class="index">06</span><span class="kicker">SUBSCRIPTION CONTROL</span></div><h2>Every recurring payment.<br><em>Finally under control.</em></h2></div>
+      <p class="subscription-intro reveal">Kotiz brings subscriptions and frequent expenses into one calm interface — track, optimize or cancel in a few taps.</p>
+      <div class="subscription-ui reveal">
+        <aside class="sub-sidebar"><div class="dash-brand"><img src="images/kotiz-mark-inclusive-transparent.png" alt=""> kotiz</div><nav><button class="active" data-sub-jump="subscriptionList">◫ Subscriptions</button><button data-sub-jump="unusedAlert">⌁ Unused services</button><button data-sub-jump="energyCheck">◎ Energy bills</button></nav><div class="sub-health"><span>HOUSEHOLD COST HEALTH</span><div><strong>68</strong><small>/100</small></div><p>5 opportunities found</p></div></aside>
+        <div class="sub-main">
+          <header class="sub-header"><div><small>RECURRING EXPENSES</small><h3>Your subscriptions</h3></div><button>＋ Add manually</button></header>
+          <div class="sub-stats"><article><span>Estimated monthly equivalent</span><strong id="subscriptionTotal">€95.18</strong><small id="activeCount">5 active subscriptions</small></article><article><span>Total saving potential</span><strong class="green" id="subscriptionSavings">€80.01</strong><small>subscriptions and energy</small></article><article><span>Next payment</span><strong>Sep 06</strong><small>Netflix Premium · €21.99</small></article></div>
+
+          <section class="smart-audit" aria-labelledby="smartAuditTitle">
+            <div class="audit-head"><div><small>KOTIZ SMART AUDIT</small><h3 id="smartAuditTitle">Pay only for what you use.</h3><p>Linked accounts help Kotiz identify inactive services and compare utility bills with actual consumption.</p></div><button type="button" id="runUsageScan"><span>◎</span> Scan linked accounts</button></div>
+            <div class="connection-strip"><span><i></i> Bank payments connected</span><span><i></i> Email receipts connected</span><span><i></i> Service activity connected</span><b id="scanStatus">Last scan · today</b></div>
+            <div class="audit-alert" id="unusedAlert"><span>!</span><div><small>UNUSED SUBSCRIPTION</small><strong>€23.99/month may be wasted</strong><p>Adobe Photography has not been used for 47 days. Basic-Fit is used regularly and remains marked as optimized.</p></div><button type="button" data-show-unused>Review this service →</button></div>
+
+            <div class="energy-heading" id="energyCheck"><div><small>ENERGY BILL CHECK</small><h3>Compare bills with your usage</h3></div><p>Adjust your monthly consumption and amount paid. Kotiz estimates an expected cost and flags a possible difference.</p></div>
+            <div class="energy-grid">
+              <article class="energy-card" data-energy-card data-unit-rate="0.2016" data-fixed-cost="9.90">
+                <div class="energy-card-head"><span class="energy-icon">ϟ</span><div><small>ELECTRICITY</small><h4>Monthly bill</h4></div><b class="energy-flag">CHECK PRICE</b></div>
+                <div class="energy-inputs"><label>Usage<input class="energy-usage" type="number" min="0" step="1" value="312"><span>kWh</span></label><label>Amount paid<input class="energy-bill" type="number" min="0" step="0.01" value="96.40"><span>€</span></label></div>
+                <div class="energy-result"><span>Estimated cost for this usage<strong class="expected-cost">€72.80</strong></span><span>Possible difference<strong class="energy-difference">+€23.60</strong></span></div>
+                <div class="energy-meter"><i></i><span>Usage-based estimate</span><b>Amount paid</b></div>
+                <button type="button" class="compare-energy">Compare electricity offers <span>→</span></button>
+                <div class="energy-alternatives" hidden><small>ILLUSTRATIVE COMPARISON</small><div><span>Current estimated yearly cost</span><b class="current-yearly">€1,156.80</b></div><div><span>Example alternative</span><b class="alternative-yearly">€922.72</b></div><strong>Potential saving: <span class="energy-year-saving">€234.08/year</span></strong></div>
+              </article>
+              <article class="energy-card" data-energy-card data-unit-rate="0.102" data-fixed-cost="14.50">
+                <div class="energy-card-head"><span class="energy-icon gas">◌</span><div><small>NATURAL GAS</small><h4>Monthly bill</h4></div><b class="energy-flag">CHECK PRICE</b></div>
+                <div class="energy-inputs"><label>Usage<input class="energy-usage" type="number" min="0" step="1" value="840"><span>kWh</span></label><label>Amount paid<input class="energy-bill" type="number" min="0" step="0.01" value="118.60"><span>€</span></label></div>
+                <div class="energy-result"><span>Estimated cost for this usage<strong class="expected-cost">€100.18</strong></span><span>Possible difference<strong class="energy-difference">+€18.42</strong></span></div>
+                <div class="energy-meter"><i></i><span>Usage-based estimate</span><b>Amount paid</b></div>
+                <button type="button" class="compare-energy">Compare gas offers <span>→</span></button>
+                <div class="energy-alternatives" hidden><small>ILLUSTRATIVE COMPARISON</small><div><span>Current estimated yearly cost</span><b class="current-yearly">€1,423.20</b></div><div><span>Example alternative</span><b class="alternative-yearly">€1,217.54</b></div><strong>Potential saving: <span class="energy-year-saving">€205.66/year</span></strong></div>
+              </article>
+            </div>
+            <p class="energy-disclaimer">Estimates include an illustrative unit rate and fixed monthly charge. Taxes, tariff options and regulated adjustments can change the final bill. Kotiz flags a difference; it does not certify supplier overbilling.</p>
+          </section>
+
+          <div class="sub-toolbar"><div class="sub-tabs"><button class="active" data-sub-filter="all">All <span>5</span></button><button data-sub-filter="attention">Needs attention <span>3</span></button><button data-sub-filter="unused">Unused <span>1</span></button></div><button class="sub-sort">Sort by date ↕</button></div>
+          <div class="subscription-list" id="subscriptionList">
+            <article class="subscription-row attention" data-subscription data-state="active" data-price="19.99" data-attention="true"><div class="service-logo netflix"><img src="images/netflix_logo.jpg" alt="Netflix logo"></div><div class="service-name"><strong>Netflix</strong><small>Entertainment · Monthly</small></div><div class="renewal"><span>NEXT PAYMENT</span><b>Sep 06</b></div><div class="sub-price"><strong>€19.99</strong><small>/ month</small></div><div class="price-alert">↑ Price increased</div><button class="manage-sub">Manage</button><div class="manage-menu"><button class="alternative-sub" data-alternative-saving="8">Alternatives</button><button class="pause-sub">Pause subscription</button><button class="cancel-sub">Cancel subscription</button></div></article>
+            <article class="subscription-row" data-subscription data-state="active" data-price="11.99" data-attention="false"><div class="service-logo spotify"><img src="images/spotify_logo.webp" alt="Spotify logo"></div><div class="service-name"><strong>Spotify</strong><small>Music · Monthly</small></div><div class="renewal"><span>NEXT PAYMENT</span><b>Sep 11</b></div><div class="sub-price"><strong>€11.99</strong><small>/ month</small></div><div class="sub-status">Active</div><button class="manage-sub">Manage</button><div class="manage-menu"><button class="alternative-sub" data-alternative-saving="2.4">Alternatives</button><button class="pause-sub">Pause subscription</button><button class="cancel-sub">Cancel subscription</button></div></article>
+            <article class="subscription-row attention unused" data-subscription data-state="active" data-price="23.99" data-attention="true" data-unused="true"><div class="service-logo adobe">A</div><div class="service-name"><strong>Adobe</strong><small>Software · Last used 47 days ago</small></div><div class="renewal"><span>NEXT PAYMENT</span><b>Sep 14</b></div><div class="sub-price"><strong>€23.99</strong><small>/ month</small></div><div class="price-alert">Unused for 47 days</div><button class="manage-sub">Manage</button><div class="manage-menu"><button class="alternative-sub" data-alternative-saving="4.8">Alternatives</button><button class="pause-sub">Pause subscription</button><button class="cancel-sub">Cancel subscription</button></div></article>
+            <article class="subscription-row" data-subscription data-state="active" data-price="9.99" data-attention="false"><div class="service-logo icloud"><img src="images/icloud_logo.png" alt="iCloud logo"></div><div class="service-name"><strong>iCloud+</strong><small>Storage · Monthly</small></div><div class="renewal"><span>NEXT PAYMENT</span><b>Sep 19</b></div><div class="sub-price"><strong>€9.99</strong><small>/ month</small></div><div class="sub-status">Active</div><button class="manage-sub">Manage</button><div class="manage-menu"><button class="alternative-sub" data-alternative-saving="2">Alternatives</button><button class="pause-sub">Pause subscription</button><button class="cancel-sub">Cancel subscription</button></div></article>
+            <article class="subscription-row attention unused" data-subscription data-state="active" data-price="9" data-attention="true" data-unused="true"><div class="service-logo gym"><img src="images/Basic-Fit_logo.png" alt="Basic-Fit logo"></div><div class="service-name"><strong>Basic-Fit</strong><small>Fitness · Last used 61 days ago</small></div><div class="renewal"><span>NEXT PAYMENT</span><b>Sep 27</b></div><div class="sub-price"><strong>€9.00</strong><small>/ month</small></div><div class="price-alert">Unused for 61 days</div><button class="manage-sub">Manage</button><div class="manage-menu"><button class="alternative-sub" data-alternative-saving="1.8">Alternatives</button><button class="pause-sub">Pause subscription</button><button class="cancel-sub">Cancel subscription</button></div></article>
+          </div>
+          <p class="demo-data-note">Demo interface · Brand names and amounts are illustrative only. Cancellation availability depends on each provider.</p>
+        </div>
+      </div>
+      <div class="cancel-modal" id="cancelModal" role="dialog" aria-modal="true" aria-labelledby="cancelTitle"><div><button class="modal-close" aria-label="Close">×</button><span class="modal-icon">⌁</span><small>SMART CHECK</small><h3 id="cancelTitle">Cancel <span id="cancelService">subscription</span>?</h3><p>Kotiz will guide you to the provider's cancellation page. You could save <strong id="cancelSaving">€0</strong> per year.</p><div class="modal-actions"><button class="keep-sub">Keep it for now</button><button class="confirm-cancel">Confirm cancellation</button></div></div></div>
+    </section>
+
+    <section class="audience section page-view" data-page="home">
+      <div class="section-head reveal"><div><span class="index">08</span><span class="kicker">BUILT FOR REAL LIFE</span></div><h2>Every household has<br><em>its own rhythm.</em></h2></div>
+      <div class="audience-grid"><article class="aud-card primary-card reveal"><div class="people-art couple"><span></span><span></span></div><div><span>CORE AUDIENCE</span><h3>Couples &<br>young families</h3><p>Build healthy money habits together, from the very beginning.</p></div></article><article class="aud-card reveal delay-1"><div class="people-art mates"><span></span><span></span><span></span></div><div><h3>Flatmates</h3><p>Keep shared living simple without tracking every coffee.</p></div></article><article class="aud-card reveal delay-2"><div class="people-art family"><span></span><span></span><span></span></div><div><h3>Families with teenagers</h3><p>Teach money skills with clarity and trust.</p></div></article></div>
+    </section>
+
+    <section class="difference section page-view" data-page="home">
+      <span class="index reveal">09 — OUR DIFFERENCE</span>
+      <div class="quote old reveal"><small>Most tools ask</small><p>“Who owes whom?”</p></div>
+      <div class="shift-arrow reveal">↓</div>
+      <div class="quote new reveal"><small>We ask</small><h2>“How can our household<br>manage money <em>better together?</em>”</h2></div>
+      <div class="formula reveal"><span>Budget</span><b>＋</b><span>Split</span><b>＋</b><span>Automation</span><b>＋</b><span>Insights</span></div>
+    </section>
+
+    <section class="vision section page-view page-first" data-page="vision" id="vision">
+      <div class="section-head light reveal"><div><span class="index">10</span><span class="kicker">BUSINESS & VISION</span></div><h2>Simple to start.<br><em>Built to grow.</em></h2></div>
+      <div class="business-grid"><article class="price-card reveal"><span>FREEMIUM MODEL</span><h3>Essential money clarity,<br>free for every household.</h3><div class="price"><b>€5.99</b><span>/ month<br>per household</span></div><ul><li>Advanced & automatic splitting</li><li>Analytics & actionable insights</li><li>Shared savings goals</li><li>Future banking synchronization</li></ul><button>Premium, when you're ready <span>→</span></button></article>
+      <div class="roadmap reveal delay-1"><span>3-YEAR VISION</span><div class="road-step"><i>01</i><div><small>YEAR 1</small><h3>Validate</h3><p>Launch, learn and prove our value with early households.</p></div></div><div class="road-step"><i>02</i><div><small>YEAR 2</small><h3>Grow</h3><p>Expand the product and build a loyal community.</p></div></div><div class="road-step"><i>03</i><div><small>YEAR 3</small><h3>Scale</h3><p>Connect banking and become the household money hub.</p></div></div></div></div>
+    </section>
+
+    <section class="closing page-view" data-page="vision">
+      <div class="closing-orb"></div><div class="closing-copy reveal"><span>OUR BELIEF</span><h2>Money is personal.<br>Managing it together<br><em>shouldn't be complicated.</em></h2><p>Our vision is to become the financial co-pilot<br>of every modern household.</p><a href="#home" data-route="home">Back home ↑</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="site-footer-main"><a class="brand" href="#home" data-route="home"><img class="brand-mark" src="images/kotiz-mark-inclusive-transparent.png" alt=""> kotiz</a><p>Money clarity for the whole household.</p><span class="footer-status"><i></i> View-only by design</span></div>
+    <nav class="footer-links" aria-label="Footer navigation"><a href="#home" data-route="home">Home</a><a href="#finance" data-route="finance">Finance</a><a href="#abonnement" data-route="abonnement">Abonnement</a><a href="#vision" data-route="vision">Vision</a></nav>
+    <div class="site-footer-bottom"><span>Albert School — Student Project · 2026</span><span>Built with care in Paris, France</span></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
