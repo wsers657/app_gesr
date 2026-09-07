@@ -1,0 +1,83 @@
+{
+   "checksum": "1254947858eb252a1bf49cf18ecac984",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13433031623983149",
+            "date_last_used": "0",
+            "guid": "dbbf68af-bad4-41cc-9fa2-36b43ac9cd0e",
+            "id": "9",
+            "name": "Lenovo Support",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://support.lenovo.com/",
+            "visit_count": 0
+         }, {
+            "date_added": "13433031623982921",
+            "date_last_used": "0",
+            "guid": "8b77d8e7-4e1e-455f-8118-915f15f00e87",
+            "id": "8",
+            "name": "Lenovo",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.lenovo.com/",
+            "visit_count": 0
+         }, {
+            "date_added": "13433031623982352",
+            "date_last_used": "0",
+            "guid": "1e0db0f5-d1b5-4a5b-9c9e-68388327525b",
+            "id": "7",
+            "name": "McAfee",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://consroute.mcafee.com/app?csrc=browserfav&affid=714&clicksrc=browserfav",
+            "visit_count": 0
+         } ],
+         "date_added": "13433031623735051",
+         "date_last_used": "0",
+         "date_modified": "13433031623983149",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Barre des favoris",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13433031623735051",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Autres favoris",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13433031623735051",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Favoris de l’appareil mobile",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [  ],
+         "date_added": "13433031623735051",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "Espaces de travail",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

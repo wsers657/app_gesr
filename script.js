@@ -29,6 +29,7 @@ const routeTitles = {
   home: 'Kotiz — Money, better together.',
   finance: 'Finance — Kotiz',
   savings: 'Savings — Kotiz',
+  demo: 'Démo produit — Kotiz',
   abonnement: 'Abonnement — Kotiz',
   vision: 'Vision — Kotiz'
 };
@@ -40,7 +41,12 @@ const renderRoute = () => {
   const aliases = { product: 'savings', offers: 'abonnement', subscriptions: 'abonnement' };
   const normalized = aliases[requested] || requested;
   const route = validRoutes.includes(normalized) ? normalized : 'home';
-  document.querySelectorAll('[data-page]').forEach(section => section.classList.toggle('route-active', section.dataset.page === route));
+  document.querySelectorAll('[data-page]').forEach(section => {
+    const active = section.dataset.page === route;
+    section.classList.toggle('route-active', active);
+    section.toggleAttribute('hidden', !active);
+    section.setAttribute('aria-hidden', String(!active));
+  });
   document.querySelectorAll('.nav-links [data-route]').forEach(link => {
     const active = link.dataset.route === route;
     link.classList.toggle('active', active);
@@ -52,6 +58,7 @@ const renderRoute = () => {
   document.querySelector('.nav-links').classList.remove('open');
   document.body.classList.remove('menu-is-open');
   menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Open menu');
   menuToggle.querySelectorAll('span').forEach(span => span.removeAttribute('style'));
   window.scrollTo({ top: 0, behavior: 'auto' });
   requestAnimationFrame(() => document.querySelectorAll(`[data-page="${route}"] .reveal`).forEach(item => item.classList.add('visible')));
@@ -62,9 +69,50 @@ menuToggle.addEventListener('click', () => {
   nav.classList.toggle('menu-open', open);
   document.body.classList.toggle('menu-is-open', open);
   menuToggle.setAttribute('aria-expanded', String(open));
+  menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+});
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape' || !nav.classList.contains('menu-open')) return;
+  nav.classList.remove('menu-open');
+  document.querySelector('.nav-links').classList.remove('open');
+  document.body.classList.remove('menu-is-open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Open menu');
+  menuToggle.focus();
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 900 || !nav.classList.contains('menu-open')) return;
+  nav.classList.remove('menu-open');
+  document.querySelector('.nav-links').classList.remove('open');
+  document.body.classList.remove('menu-is-open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Open menu');
 });
 window.addEventListener('hashchange', renderRoute);
 renderRoute();
+
+document.querySelectorAll('[data-hero-scroll]').forEach(button => button.addEventListener('click', () => {
+  document.getElementById(button.dataset.heroScroll)?.scrollIntoView({
+    behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    block: 'start'
+  });
+}));
+
+if (matchMedia('(pointer:fine) and (prefers-reduced-motion: no-preference)').matches) {
+  document.querySelectorAll('.route-hero').forEach(hero => {
+    hero.addEventListener('pointermove', event => {
+      const bounds = hero.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width - .5) * 12;
+      const y = ((event.clientY - bounds.top) / bounds.height - .5) * 10;
+      hero.style.setProperty('--scene-x', `${x}px`);
+      hero.style.setProperty('--scene-y', `${y}px`);
+    });
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--scene-x', '0px');
+      hero.style.setProperty('--scene-y', '0px');
+    });
+  });
+}
 
 const quiz = document.querySelector('#savingsQuiz');
 if (quiz) {
@@ -90,7 +138,7 @@ if (quiz) {
   spend.addEventListener('input', () => {
     const percent = ((spend.value - spend.min) / (spend.max - spend.min)) * 100;
     spendOutput.textContent = format(spend.value);
-    spend.style.background = `linear-gradient(90deg, var(--lime) ${percent}%, #ffffff25 ${percent}%)`;
+    spend.style.background = `linear-gradient(90deg, var(--brand-yellow) ${percent}%, #ffffff25 ${percent}%)`;
   });
 
   next.addEventListener('click', () => {
@@ -117,7 +165,7 @@ if (quiz) {
   document.querySelector('#quizRestart').addEventListener('click', () => {
     quiz.reset();
     spendOutput.textContent = '3,500';
-    spend.style.background = 'linear-gradient(90deg, var(--lime) 35.7%, #ffffff25 35.7%)';
+    spend.style.background = 'linear-gradient(90deg, var(--brand-yellow) 35.7%, #ffffff25 35.7%)';
     document.querySelector('#quizResult').classList.remove('active');
     quiz.style.display = 'block';
     showStep(0);
@@ -177,53 +225,6 @@ document.querySelector('#statementImport')?.addEventListener('change', event => 
   if (file) document.querySelector('.import-button').textContent = `✓ ${file.name}`;
 });
 
-const memberForm = document.querySelector('.member-add-form');
-document.querySelector('.family-panel .panel-action')?.addEventListener('click', () => {
-  memberForm.hidden = !memberForm.hidden;
-  if (!memberForm.hidden) document.querySelector('#memberName').focus();
-});
-
-document.querySelector('#saveMember')?.addEventListener('click', () => {
-  const input = document.querySelector('#memberName');
-  const name = input.value.trim();
-  if (!name) return input.focus();
-  const row = document.createElement('div');
-  row.className = 'member-row';
-  row.dataset.member = name;
-  row.dataset.reserve = '—';
-  row.dataset.reserveType = currentLanguage === 'fr' ? 'Placement à relier' : 'Account to connect';
-  const avatar = document.createElement('span');
-  avatar.className = 'member-avatar child-avatar';
-  avatar.textContent = name.trim().charAt(0).toUpperCase();
-  const details = document.createElement('div');
-  const memberName = document.createElement('strong');
-  memberName.textContent = name.trim();
-  const memberType = document.createElement('small');
-  memberType.textContent = currentLanguage === 'fr' ? 'Nouveau membre · Consultation seule' : 'New member · View only';
-  details.append(memberName, memberType);
-  const balance = document.createElement('b');
-  balance.textContent = '—';
-  const viewButton = document.createElement('button');
-  viewButton.type = 'button';
-  viewButton.className = 'view-member';
-  viewButton.textContent = currentLanguage === 'fr' ? 'Voir' : 'View';
-  row.append(avatar, details, balance, viewButton);
-  document.querySelector('.family-panel .read-only-note').before(row);
-  input.value = '';
-  memberForm.hidden = true;
-});
-
-document.querySelector('.family-panel')?.addEventListener('click', event => {
-  const button = event.target.closest('.view-member');
-  if (!button) return;
-  const row = button.closest('.member-row');
-  const reserve = document.querySelector('#memberReserve');
-  reserve.hidden = false;
-  document.querySelector('#memberReserveTitle').textContent = `${row.dataset.member} · ${row.dataset.reserveType}`;
-  document.querySelector('#memberReserveAmount').textContent = row.dataset.reserve;
-  reserve.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-});
-
 const subscriptionRows = [...document.querySelectorAll('[data-subscription]')];
 const subscriptionCatalog = {
   Netflix: { plan: 'Premium', price: 21.99, billing: 'monthly', tier: 'premium', usage: 'Limited · 8 h/month · 1 screen', usageScore: 28, status: 'optimization_available', lowerPlan: 'Standard', lowerPrice: 14.99, alternativeSaving: 10, reason: 'Your usage does not appear to require 4K, spatial audio or simultaneous viewing on four screens.' },
@@ -259,6 +260,8 @@ subscriptionRows.forEach(row => {
   const menu = row.querySelector('.manage-menu');
   const manageButton = row.querySelector('.manage-sub');
   manageButton.innerHTML = '<span>Manage</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>';
+  manageButton.setAttribute('aria-label', `Manage ${service}`);
+  manageButton.setAttribute('title', `Manage ${service}`);
   menu.setAttribute('role', 'menu');
   menu.innerHTML = `<div class="manage-menu-head"><small>CURRENT PLAN</small><strong>${item.plan}</strong></div><button class="analysis-sub" type="button">View usage analysis</button>${item.lowerPlan ? `<button class="downgrade-sub" type="button">Switch to ${item.lowerPlan}<small>Save €${saving.toFixed(2)}/month</small></button>` : ''}${item.alternativeSaving == null ? '' : `<button class="alternative-sub" type="button" data-alternative-saving="${item.alternativeSaving.toFixed(2)}">Compare alternatives</button>`}<div class="manage-menu-separator"></div><button class="pause-sub" type="button">Pause subscription</button><button class="cancel-sub" type="button">Cancel subscription</button>`;
   const panel = document.createElement('div');
@@ -621,6 +624,7 @@ Object.assign(french, {
   'Inactive · 47 days':'Inactive · 47 jours',
   'Moderate · 146 GB used':'Modérée · 146 Go utilisés',
   'Regular · 11 visits/month':'Régulière · 11 visites/mois',
+  'Demo interface · Brand names and amounts are illustrative only. Cancellation availability depends on each provider.':'Interface de démonstration · Les marques et montants sont présentés à titre indicatif. Les possibilités de résiliation dépendent de chaque fournisseur.',
   'A fictional comparable gym membership. Your Basic-Fit plan is already optimized, but this external alternative costs less.':'Un abonnement de salle fictif comparable. Votre formule Basic-Fit est déjà optimisée, mais cette alternative externe coûte moins cher.',
   'Save €5 / 4 weeks · €65 / year':'Économisez 5 € toutes les 4 semaines · 65 € par an'
 });
@@ -684,6 +688,78 @@ const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
 while (walker.nextNode()) textNodes.push({ node: walker.currentNode, original: walker.currentNode.nodeValue });
 
 const languageToggle = document.querySelector('.language-toggle');
+Object.assign(french, {
+  'All your money.':'Tout votre argent.',
+  'Finally readable.':'Enfin lisible.',
+  'Understand the whole household before making a decision. Accounts, savings and commitments stay clear, separate and connected.':'Comprenez l’ensemble du foyer avant de décider. Comptes, épargne et engagements restent clairs, séparés et connectés.',
+  'Explore the household':'Explorer le foyer',
+  'View-only · Your banks stay in control':'Consultation seule · Vos banques gardent le contrôle',
+  'HOUSEHOLD BALANCE':'SOLDE DU FOYER',
+  'profiles consolidated':'profils consolidés',
+  'THIS MONTH':'CE MOIS-CI',
+  'Everyday':'Quotidien',
+  'Recurring':'Récurrent',
+  'MAIN PROFILE':'PROFIL PRINCIPAL',
+  'BUDGET & GOALS':'BUDGET ET OBJECTIFS',
+  'Your projects':'Vos projets',
+  'deserve a plan.':'méritent un plan.',
+  'See where every euro goes, protect what matters and turn a monthly rhythm into visible progress.':'Voyez où part chaque euro, protégez ce qui compte et transformez votre rythme mensuel en progression visible.',
+  'Open the budget':'Ouvrir le budget',
+  'One trajectory · Shared by the household':'Une trajectoire · Partagée par le foyer',
+  'FAMILY PROJECT':'PROJET DU FOYER',
+  'NEXT MILESTONE':'PROCHAINE ÉTAPE',
+  'Book the house':'Réserver le logement',
+  'this month':'ce mois-ci',
+  'KOTIZ MARKET':'BOUTIQUE KOTIZ',
+  'Our partners’ best offers':'Les meilleures offres de nos partenaires',
+  'for your household.':'pour votre foyer.',
+  'Benefits negotiated with our selected partners, matched to your real usage — while you stay completely free to choose.':'Des avantages négociés avec nos partenaires sélectionnés, adaptés à vos usages réels — tout en vous laissant entièrement libre de choisir.',
+  'SELECTED KOTIZ PARTNERS':'NOS PARTENAIRES KOTIZ SÉLECTIONNÉS',
+  'Relevant offers · Clear benefits · No obligation':'Offres pertinentes · Avantages clairs · Sans engagement',
+  'KOTIZ PARTNER':'PARTENAIRE KOTIZ',
+  'PARTNER MATCH':'MATCH PARTENAIRE',
+  'Pay less.':'Payez moins.',
+  'Keep what matters.':'Gardez l’essentiel.',
+  'Every recurring payment becomes visible, comparable and actionable — without deciding for you.':'Chaque paiement récurrent devient visible, comparable et actionnable — sans jamais décider à votre place.',
+  'Review subscriptions':'Voir les abonnements',
+  'services monitored':'services suivis',
+  'opportunities':'opportunités',
+  'RECOMMENDED PLAN':'FORMULE RECOMMANDÉE',
+  'PRICE UP':'PRIX EN HAUSSE',
+  'OPTIMIZED':'OPTIMISÉ',
+  'EVERY MONTH':'CHAQUE MOIS',
+  'Better match found':'Meilleure offre trouvée',
+  'THE KOTIZ VISION':'LA VISION KOTIZ',
+  'A financial co-pilot.':'Un copilote financier.',
+  'Built around real life.':'Pensé autour de la vraie vie.',
+  'From one clear decision to a lasting household habit, Kotiz connects people, plans and opportunities in a single continuous loop.':'D’une décision claire à une habitude durable, Kotiz relie les personnes, les projets et les opportunités dans une même dynamique.',
+  'Discover the model':'Découvrir le modèle',
+  'Clarity · Fairness · Action':'Clarté · Équité · Action',
+  'Understand':'Comprendre',
+  'One shared view':'Une vue partagée',
+  'Decide':'Décider',
+  'At the right time':'Au bon moment',
+  'Progress':'Progresser',
+  'Together':'Ensemble',
+  'ONE HOUSEHOLD VIEW':'UNE VUE POUR TOUT LE FOYER',
+  'MONTHLY BUDGET':'BUDGET MENSUEL',
+  'SAVING DETECTED':'Ã‰CONOMIE DÃ‰TECTÃ‰E',
+  'MOBILE':'MOBILE',
+  'INTERNET':'INTERNET',
+  'Plan optimized':'Forfait optimisÃ©',
+  'PLANS & KOTIZ VISION':'FORMULES ET VISION KOTIZ',
+  'Choose how':'Choisissez comment',
+  'you save.':'vous Ã©conomisez.',
+  'Start free, choose a fixed price, or share only the savings Kotiz actually creates. One transparent model, designed around your household.':'Commencez gratuitement, choisissez un prix fixe ou partagez uniquement les Ã©conomies rÃ©ellement crÃ©Ã©es par Kotiz. Un modÃ¨le transparent, pensÃ© pour votre foyer.',
+  'Compare plans':'Comparer les formules',
+  'Free Â· Fixed price Â· Pay for results':'Gratuit Â· Prix fixe Â· Paiement au rÃ©sultat',
+  'YOUR CHOICE':'VOTRE CHOIX',
+  'Essential':'Essentiel',
+  'Share':'Partage',
+  'of savings':'des Ã©conomies',
+  'WITHOUT SAVINGS':'SANS Ã‰CONOMIE'
+});
+
 let currentLanguage = localStorage.getItem('kotiz-language') === 'fr' ? 'fr' : 'en';
 const applyLanguage = language => {
   currentLanguage = language;
