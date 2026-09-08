@@ -30,11 +30,20 @@ const routeTitles = {
   finance: 'Finance — Kotiz',
   savings: 'Savings — Kotiz',
   demo: 'Démo produit — Kotiz',
-  abonnement: 'Abonnement — Kotiz',
+  abonnement: 'Optimizations — Kotiz',
   vision: 'Vision — Kotiz'
 };
 const validRoutes = Object.keys(routeTitles);
 const menuToggle = document.querySelector('.menu-toggle');
+const syncMenuAccessibility = () => {
+  const open = nav.classList.contains('menu-open');
+  const mobile = window.innerWidth <= 900;
+  document.querySelector('.nav-links').inert = mobile && !open;
+  document.querySelector('main').inert = open;
+  document.querySelector('.site-footer').inert = open;
+  const isFrench = document.documentElement.lang === 'fr';
+  menuToggle.setAttribute('aria-label', open ? (isFrench?'Fermer le menu':'Close menu') : (isFrench?'Ouvrir le menu':'Open menu'));
+};
 
 const renderRoute = () => {
   const requested = window.location.hash.slice(1).split('/')[0];
@@ -60,6 +69,7 @@ const renderRoute = () => {
   menuToggle.setAttribute('aria-expanded', 'false');
   menuToggle.setAttribute('aria-label', 'Open menu');
   menuToggle.querySelectorAll('span').forEach(span => span.removeAttribute('style'));
+  syncMenuAccessibility();
   window.scrollTo({ top: 0, behavior: 'auto' });
   requestAnimationFrame(() => document.querySelectorAll(`[data-page="${route}"] .reveal`).forEach(item => item.classList.add('visible')));
 };
@@ -70,6 +80,8 @@ menuToggle.addEventListener('click', () => {
   document.body.classList.toggle('menu-is-open', open);
   menuToggle.setAttribute('aria-expanded', String(open));
   menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  syncMenuAccessibility();
+  if (open) document.querySelector('.nav-links a').focus({preventScroll:true});
 });
 document.addEventListener('keydown', event => {
   if (event.key !== 'Escape' || !nav.classList.contains('menu-open')) return;
@@ -79,6 +91,7 @@ document.addEventListener('keydown', event => {
   menuToggle.setAttribute('aria-expanded', 'false');
   menuToggle.setAttribute('aria-label', 'Open menu');
   menuToggle.focus();
+  syncMenuAccessibility();
 });
 window.addEventListener('resize', () => {
   if (window.innerWidth <= 900 || !nav.classList.contains('menu-open')) return;
@@ -89,7 +102,17 @@ window.addEventListener('resize', () => {
   menuToggle.setAttribute('aria-label', 'Open menu');
 });
 window.addEventListener('hashchange', renderRoute);
+window.addEventListener('resize', syncMenuAccessibility);
+document.addEventListener('kotiz:languagechange', syncMenuAccessibility);
 renderRoute();
+
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Tab' || !nav.classList.contains('menu-open')) return;
+  const controls = [...nav.querySelectorAll('a,button')].filter(el=>el.getClientRects().length);
+  const first=controls[0],last=controls.at(-1);
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+});
 
 document.querySelectorAll('[data-hero-scroll]').forEach(button => button.addEventListener('click', () => {
   document.getElementById(button.dataset.heroScroll)?.scrollIntoView({
@@ -185,18 +208,21 @@ document.querySelectorAll('[data-offer-filter]').forEach(filter => {
 document.querySelectorAll('.promo-button').forEach(button => {
   button.addEventListener('click', async () => {
     const code = button.dataset.code;
+    let copied = false;
     try {
       await navigator.clipboard.writeText(code);
+      copied = true;
     } catch {
       const input = document.createElement('textarea');
       input.value = code;
       document.body.appendChild(input);
       input.select();
-      document.execCommand('copy');
+      try { copied = document.execCommand('copy'); } catch { copied = false; }
       input.remove();
+      button.focus();
     }
-    button.classList.add('copied');
-    button.querySelector('span').textContent = currentLanguage === 'fr' ? 'Copié ✓' : 'Copied ✓';
+    button.classList.toggle('copied', copied);
+    button.querySelector('span').textContent = copied ? (currentLanguage === 'fr' ? 'Copié ✓' : 'Copied ✓') : (currentLanguage === 'fr' ? 'Copie impossible' : 'Copy unavailable');
     setTimeout(() => {
       button.classList.remove('copied');
       button.querySelector('span').textContent = currentLanguage === 'fr' ? 'Copier' : 'Copy';
@@ -395,11 +421,17 @@ document.querySelectorAll('.cancel-sub').forEach(button => {
     document.querySelector('#cancelService').textContent = name;
     document.querySelector('#cancelSaving').textContent = `€${annual.toFixed(0)}`;
     cancelModal.classList.add('open');
+    document.querySelector('.modal-close').focus();
     selectedSubscription.querySelector('.manage-menu').classList.remove('open');
   });
 });
 
-const closeCancelModal = () => cancelModal && cancelModal.classList.remove('open');
+const closeCancelModal = () => {
+  if (!cancelModal) return;
+  cancelModal.classList.remove('open');
+  const trigger = selectedSubscription?.querySelector('.manage-sub');
+  if (trigger && !trigger.disabled) trigger.focus();
+};
 document.querySelector('.modal-close')?.addEventListener('click', closeCancelModal);
 document.querySelector('.keep-sub')?.addEventListener('click', closeCancelModal);
 cancelModal?.addEventListener('click', event => { if (event.target === cancelModal) closeCancelModal(); });
@@ -743,41 +775,61 @@ Object.assign(french, {
   'Together':'Ensemble',
   'ONE HOUSEHOLD VIEW':'UNE VUE POUR TOUT LE FOYER',
   'MONTHLY BUDGET':'BUDGET MENSUEL',
-  'SAVING DETECTED':'Ã‰CONOMIE DÃ‰TECTÃ‰E',
+  'SAVING DETECTED':'ÉCONOMIE DÉTECTÉE',
   'MOBILE':'MOBILE',
   'INTERNET':'INTERNET',
-  'Plan optimized':'Forfait optimisÃ©',
+  'Plan optimized':'Forfait optimisé',
   'PLANS & KOTIZ VISION':'FORMULES ET VISION KOTIZ',
   'Choose how':'Choisissez comment',
-  'you save.':'vous Ã©conomisez.',
-  'Start free, choose a fixed price, or share only the savings Kotiz actually creates. One transparent model, designed around your household.':'Commencez gratuitement, choisissez un prix fixe ou partagez uniquement les Ã©conomies rÃ©ellement crÃ©Ã©es par Kotiz. Un modÃ¨le transparent, pensÃ© pour votre foyer.',
+  'you save.':'vous économisez.',
+  'Start free, choose a fixed price, or share only the savings Kotiz actually creates. One transparent model, designed around your household.':'Commencez gratuitement, choisissez un prix fixe ou partagez uniquement les économies réellement créées par Kotiz. Un modèle transparent, pensé pour votre foyer.',
   'Compare plans':'Comparer les formules',
-  'Free Â· Fixed price Â· Pay for results':'Gratuit Â· Prix fixe Â· Paiement au rÃ©sultat',
+  'Free · Fixed price · Pay for results':'Gratuit · Prix fixe · Paiement au résultat',
   'YOUR CHOICE':'VOTRE CHOIX',
   'Essential':'Essentiel',
   'Share':'Partage',
-  'of savings':'des Ã©conomies',
-  'WITHOUT SAVINGS':'SANS Ã‰CONOMIE'
+  'of savings':'des économies',
+  '10% of savings':'10 % des économies',
+  '0 € / month':'0 € / mois',
+  '5,99 € / month':'5,99 € / mois',
+  'WITHOUT SAVINGS':'SANS ÉCONOMIE',
+  'YEAR 1':'ANNÉE 1',
+  'YEAR 2':'ANNÉE 2',
+  'YEAR 3':'ANNÉE 3',
+  'Launch, learn and prove our value with early households.':'Lancer le produit, apprendre et démontrer notre valeur auprès des premiers foyers.',
+  'Expand the product and build a loyal community.':'Enrichir le produit et construire une communauté fidèle.',
+  'Connect banking and become the household money hub.':'Connecter les banques et centraliser les finances du foyer.',
+  'Our vision is to become the financial co-pilot':'Notre ambition : devenir le copilote financier',
+  'of every modern household.':'de chaque foyer moderne.'
 });
 
-let currentLanguage = localStorage.getItem('kotiz-language') === 'fr' ? 'fr' : 'en';
+Object.assign(french, window.KotizCopy?.fr);
+let currentLanguage = 'fr';
+try { currentLanguage = localStorage.getItem('kotiz-language') === 'en' ? 'en' : 'fr'; }
+catch { /* Language switching also works without browser storage. */ }
 const applyLanguage = language => {
   currentLanguage = language;
   document.documentElement.lang = language;
   document.querySelector('#memberName')?.setAttribute('placeholder', language === 'fr' ? 'Nom du membre de la famille' : 'Family member name');
-  textNodes.forEach(({ node, original }) => {
+  textNodes.forEach(entry => {
+    const { node, original } = entry;
+    if (entry.rendered !== undefined && node.nodeValue !== entry.rendered) return;
     const clean = original.trim();
-    const translated = language === 'fr' ? french[clean] : null;
+    const translated = language === 'fr' ? french[clean] : window.KotizCopy?.en[clean];
     node.nodeValue = translated ? original.replace(clean, translated) : original;
+    entry.rendered = node.nodeValue;
   });
   languageToggle.querySelectorAll('span').forEach(span => span.classList.toggle('lang-active', span.textContent.trim().toLowerCase() === language));
   languageToggle.setAttribute('aria-label', language === 'en' ? 'Passer le site en français' : 'Switch website to English');
-  localStorage.setItem('kotiz-language', language);
+  try { localStorage.setItem('kotiz-language', language); }
+  catch { /* Keep the current language in memory when storage is blocked. */ }
   updateSubscriptionSummary();
   const requestedRoute = location.hash.slice(1).split('/')[0];
-  const route = requestedRoute === 'product' ? 'savings' : requestedRoute === 'offers' || requestedRoute === 'subscriptions' ? 'abonnement' : requestedRoute;
-  const frenchTitles = { home: 'Accueil', finance: 'Finance', savings: 'Économies', abonnement: 'Abonnement', vision: 'Vision' };
+  const normalizedRoute = requestedRoute === 'product' ? 'savings' : requestedRoute === 'offers' || requestedRoute === 'subscriptions' ? 'abonnement' : requestedRoute;
+  const route = validRoutes.includes(normalizedRoute) ? normalizedRoute : 'home';
+  const frenchTitles = { home: 'Accueil', finance: 'Finance', savings: 'Économies', demo: 'Démo produit', abonnement: 'Optimisations', vision: 'Vision' };
   document.title = language === 'fr' ? `${frenchTitles[route]} — Kotiz` : routeTitles[route];
+  document.dispatchEvent(new CustomEvent('kotiz:languagechange', {detail:language}));
 };
 const updateAlternativeSummary = () => {
   const summary = document.querySelector('#alternativeSummary');
@@ -791,7 +843,9 @@ const updateAlternativeSummary = () => {
     });
     return;
   }
-  const provider = decodeURIComponent(encodedProvider);
+  let provider;
+  try { provider = decodeURIComponent(encodedProvider); }
+  catch { summary.hidden = true; return; }
   const monthly = Number(savingValue);
   const annual = monthly * 12;
   const french = document.documentElement.lang === 'fr';
@@ -876,4 +930,35 @@ document.querySelectorAll('[data-scroll-to]').forEach(button => {
   button.addEventListener('click', () => {
     document.getElementById(button.dataset.scrollTo)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+});
+
+document.querySelector('.skip-link').addEventListener('click', event => {
+  event.preventDefault();
+  document.querySelector('main').focus();
+  document.querySelector('main').scrollIntoView({behavior:'instant'});
+});
+
+// Keep keyboard focus inside the active dialog and support Escape consistently.
+document.addEventListener('keydown', event => {
+  const dialog = document.querySelector('#cancelModal.open, #demoDrawer:not([hidden])');
+  if (!dialog) return;
+  if (event.key === 'Escape') {
+    if (dialog === cancelModal) closeCancelModal();
+    return;
+  }
+  if (event.key !== 'Tab') return;
+  const controls = [...dialog.querySelectorAll('button:not([disabled]),a[href],input,select,[tabindex="0"]')]
+    .filter(el => el.getClientRects().length && !el.classList.contains('drawer-backdrop'));
+  const first = controls[0], last = controls.at(-1);
+  if (!first) return;
+  if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+    event.preventDefault(); last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+    event.preventDefault(); first.focus();
+  }
+});
+
+window.addEventListener('hashchange', () => {
+  cancelModal?.classList.remove('open');
+  document.querySelectorAll('.manage-menu.open').forEach(menu => menu.classList.remove('open'));
 });

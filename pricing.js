@@ -1,14 +1,21 @@
 (() => {
   const model = window.KotizPricing;
   if (!model) return;
-  const money = value => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:2}).format(value);
-  const roundMoney = value => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(value);
+  const isFrench = () => document.documentElement.lang === 'fr';
+  const money = value => new Intl.NumberFormat(isFrench()?'fr-FR':'en-IE',{style:'currency',currency:'EUR',minimumFractionDigits:2}).format(value);
+  const roundMoney = value => new Intl.NumberFormat(isFrench()?'fr-FR':'en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(value);
+  const planName = id => isFrench() ? model.plans[id].name : {essential:'Kotiz Essential',plus:'Kotiz Plus',share:'Kotiz Share'}[id];
   const slider = document.querySelector('#pricingSavings');
+  let currentPlan = 'share';
   const selectedPlan = () => {
-    try { return localStorage.getItem('kotiz-demo-plan') || 'share'; }
-    catch { return 'share'; }
+    try {
+      const stored = localStorage.getItem('kotiz-demo-plan');
+      return Object.hasOwn(model.plans, stored) ? stored : currentPlan;
+    }
+    catch { return currentPlan; }
   };
   const savePlan = planId => {
+    currentPlan = planId;
     try { localStorage.setItem('kotiz-demo-plan', planId); }
     catch { /* The demo remains functional when storage is unavailable. */ }
   };
@@ -23,21 +30,22 @@
     document.querySelector('#shareAnnualCost').textContent = money(shareCost);
     document.querySelector('#plusAnnualCost').textContent = money(plusCost);
     document.querySelector('#shareKeepValue').textContent = money(Math.max(0, savings - shareCost));
-    document.querySelector('#pricingRecommendation').innerHTML = `<strong>${model.plans[recommended].name}</strong> est probablement plus avantageux pour ce niveau d’économies.`;
+    document.querySelector('#pricingRecommendation').innerHTML = `<strong>${planName(recommended)}</strong> ${isFrench()?'est probablement plus avantageux pour ce niveau d’économies.':'is likely better value at this level of savings.'}`;
     document.querySelectorAll('[data-comparison-plan]').forEach(card => card.classList.toggle('recommended', card.dataset.comparisonPlan === recommended));
     const percent = (savings - Number(slider.min)) / (Number(slider.max) - Number(slider.min)) * 100;
     slider.style.setProperty('--range-progress', `${percent}%`);
   }
 
   function renderSelection(planId) {
+    currentPlan = planId;
     document.querySelectorAll('[data-pricing-plan]').forEach(card => card.classList.toggle('selected', card.dataset.pricingPlan === planId));
     document.querySelectorAll('[data-select-plan]').forEach(button => {
       const active = button.dataset.selectPlan === planId;
-      button.textContent = active ? '✓ Formule sélectionnée' : 'Choisir cette formule';
+      button.textContent = active ? (isFrench()?'✓ Formule sélectionnée':'✓ Selected plan') : (isFrench()?'Choisir cette formule':'Choose this plan');
       button.setAttribute('aria-pressed', String(active));
     });
     const dashboardPlan = document.querySelector('#savingsPlanName');
-    if (dashboardPlan) dashboardPlan.textContent = model.plans[planId].name;
+    if (dashboardPlan) dashboardPlan.textContent = planName(planId);
     renderDashboard(planId);
   }
 
@@ -61,4 +69,5 @@
   }));
   renderComparison();
   renderSelection(selectedPlan());
+  document.addEventListener('kotiz:languagechange', () => { renderComparison(); renderSelection(currentPlan); });
 })();

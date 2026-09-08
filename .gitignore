@@ -1,0 +1,6 @@
+/dist/
+/.audit/edge*/
+/.audit/*.png
+/images/*.exe
+/images/*.pdf
+desktop.ini

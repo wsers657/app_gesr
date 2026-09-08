@@ -1,0 +1,1 @@
+(() => textNodes.filter(({node,original}) => node.isConnected && !node.parentElement.closest('[data-page="demo"],script,style') && /[a-z]{3}/i.test(original) && !french[original.trim()]).map(({original})=>original.trim()).filter((s,i,a)=>a.indexOf(s)===i))()
