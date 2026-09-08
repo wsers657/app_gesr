@@ -100,6 +100,7 @@ window.addEventListener('resize', () => {
   document.body.classList.remove('menu-is-open');
   menuToggle.setAttribute('aria-expanded', 'false');
   menuToggle.setAttribute('aria-label', 'Open menu');
+  syncMenuAccessibility();
 });
 window.addEventListener('hashchange', renderRoute);
 window.addEventListener('resize', syncMenuAccessibility);
@@ -288,7 +289,9 @@ subscriptionRows.forEach(row => {
   manageButton.innerHTML = '<span>Manage</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>';
   manageButton.setAttribute('aria-label', `Manage ${service}`);
   manageButton.setAttribute('title', `Manage ${service}`);
-  menu.setAttribute('role', 'menu');
+  menu.id = `subscription-actions-${subscriptionRows.indexOf(row)}`;
+  manageButton.setAttribute('aria-controls', menu.id);
+  manageButton.setAttribute('aria-expanded', 'false');
   menu.innerHTML = `<div class="manage-menu-head"><small>CURRENT PLAN</small><strong>${item.plan}</strong></div><button class="analysis-sub" type="button">View usage analysis</button>${item.lowerPlan ? `<button class="downgrade-sub" type="button">Switch to ${item.lowerPlan}<small>Save €${saving.toFixed(2)}/month</small></button>` : ''}${item.alternativeSaving == null ? '' : `<button class="alternative-sub" type="button" data-alternative-saving="${item.alternativeSaving.toFixed(2)}">Compare alternatives</button>`}<div class="manage-menu-separator"></div><button class="pause-sub" type="button">Pause subscription</button><button class="cancel-sub" type="button">Cancel subscription</button>`;
   const panel = document.createElement('div');
   panel.className = 'plan-recommendation';
@@ -341,14 +344,19 @@ const updateSubscriptionSummary = () => {
   if (unusedBadge) unusedBadge.textContent = String(unusedCount);
 };
 
+const closeSubscriptionMenus = () => {
+  document.querySelectorAll('.manage-menu.open').forEach(menu => menu.classList.remove('open'));
+  document.querySelectorAll('.manage-sub').forEach(button => button.setAttribute('aria-expanded', 'false'));
+};
+
 document.querySelectorAll('.manage-sub').forEach(button => {
   button.addEventListener('click', event => {
     event.stopPropagation();
     const menu = button.nextElementSibling;
-    document.querySelectorAll('.manage-menu').forEach(other => {
-      if (other !== menu) other.classList.remove('open');
-    });
-    menu.classList.toggle('open');
+    const open = !menu.classList.contains('open');
+    closeSubscriptionMenus();
+    menu.classList.toggle('open', open);
+    button.setAttribute('aria-expanded', String(open));
   });
 });
 
@@ -356,7 +364,7 @@ const showPlanRecommendation = row => {
   document.querySelectorAll('.plan-recommendation').forEach(panel => { if (panel !== row.querySelector('.plan-recommendation')) panel.hidden = true; });
   const panel = row.querySelector('.plan-recommendation');
   panel.hidden = false;
-  row.querySelector('.manage-menu').classList.remove('open');
+  closeSubscriptionMenus();
   panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 };
 
@@ -396,7 +404,16 @@ document.querySelectorAll('.confirm-downgrade').forEach(button => {
   });
 });
 
-document.addEventListener('click', () => document.querySelectorAll('.manage-menu').forEach(menu => menu.classList.remove('open')));
+document.addEventListener('click', event => {
+  if (!event.target.closest('.manage-menu')) closeSubscriptionMenus();
+});
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  const menu = document.querySelector('.manage-menu.open');
+  if (!menu) return;
+  closeSubscriptionMenus();
+  menu.previousElementSibling.focus();
+});
 
 document.querySelectorAll('.pause-sub').forEach(button => {
   button.addEventListener('click', event => {
@@ -407,7 +424,7 @@ document.querySelectorAll('.pause-sub').forEach(button => {
     row.classList.toggle('cancelled', !paused);
     button.textContent = paused ? (document.documentElement.lang === 'fr' ? 'Mettre en pause' : 'Pause subscription') : (document.documentElement.lang === 'fr' ? 'Reprendre l’abonnement' : 'Resume subscription');
     row.querySelector('.manage-sub span').textContent = paused ? (document.documentElement.lang === 'fr' ? 'Gérer' : 'Manage') : (document.documentElement.lang === 'fr' ? 'En pause' : 'Paused');
-    row.querySelector('.manage-menu').classList.remove('open');
+    closeSubscriptionMenus();
     updateSubscriptionSummary();
   });
 });
@@ -422,7 +439,7 @@ document.querySelectorAll('.cancel-sub').forEach(button => {
     document.querySelector('#cancelSaving').textContent = `€${annual.toFixed(0)}`;
     cancelModal.classList.add('open');
     document.querySelector('.modal-close').focus();
-    selectedSubscription.querySelector('.manage-menu').classList.remove('open');
+    closeSubscriptionMenus();
   });
 });
 
@@ -960,5 +977,5 @@ document.addEventListener('keydown', event => {
 
 window.addEventListener('hashchange', () => {
   cancelModal?.classList.remove('open');
-  document.querySelectorAll('.manage-menu.open').forEach(menu => menu.classList.remove('open'));
+  closeSubscriptionMenus();
 });
